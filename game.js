@@ -39,8 +39,14 @@ function hasPlayerWon() {
     let vertical3 = grid[2] == playerNumber && grid[5] == playerNumber && grid[8] == playerNumber;
     let diagonal1 = grid[0] == playerNumber && grid[4] == playerNumber && grid[8] == playerNumber;
     let diagonal2 = grid[2] == playerNumber && grid[4] == playerNumber && grid[6] == playerNumber;
+    let draw = true
+    for (let index = 0; index < 9; index++) {
+        if (grid[index] == -1) {
+            draw = false;
+        }
+    }
 
-    if (horizontal1 || horizontal2 || horizontal3 || vertical1 || vertical2 || vertical3 || diagonal1 || diagonal2) {
+    if (horizontal1 || horizontal2 || horizontal3 || vertical1 || vertical2 || vertical3 || diagonal1 || diagonal2 || draw) {
         return true;
     } else {
         return false;
