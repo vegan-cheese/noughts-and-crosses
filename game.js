@@ -2,6 +2,7 @@
 let currentPlayer = true;
 
 let gameOver = false;
+let winner = -1
 
 // In grid, -1 is blank, 0 is crosses and 1 is noughts
 const grid = [
@@ -46,7 +47,11 @@ function hasPlayerWon() {
         }
     }
 
-    if (horizontal1 || horizontal2 || horizontal3 || vertical1 || vertical2 || vertical3 || diagonal1 || diagonal2 || draw) {
+    if (horizontal1 || horizontal2 || horizontal3 || vertical1 || vertical2 || vertical3 || diagonal1 || diagonal2) {
+        winner = Number(currentPlayer);
+        return true;
+    } else if (draw) {
+        winner = -1;
         return true;
     } else {
         return false;
@@ -69,8 +74,14 @@ function squareClicked(gridIndex) {
     updateGridDisplay();
 
     gameOver = hasPlayerWon();
-    if (gameOver) {
-        messageBox.textContent = "Game Over! Reload the page to restart";
+    if (gameOver && winner == -1) {
+        messageBox.textContent = "Draw! Reload the page to restart";
+        messageBox.style.display = "block";
+    } else if (gameOver && winner == 0) {
+        messageBox.textContent = "Crosses wins! Reload the page to restart";
+        messageBox.style.display = "block";
+    } else if (gameOver && winner == 1) {
+        messageBox.textContent = "Noughts wins! Reload the page to restart";
         messageBox.style.display = "block";
     } else {
         currentPlayer = !currentPlayer;
